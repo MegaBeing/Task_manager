@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2><a href="{% url 'project_list' %}">Projects page</a></h2>
+    <h1>{{ project.name }}</h1>
+    <h3>Client - {{ project.client }}</h3>
+    <h2>Tasks:</h2>
+    <ul>
+        {% for task in tasks %}
+        <li>{{ task.name }} - <a href="{% url 'single_task' task.id %}">edit</a>
+            {% comment %} Delete {% endcomment %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value = "{{task.id}}">
+            <input type="submit" value="Delete">
+        </form> 
+        </li>
+        {% endfor %}
+    </ul>
+    <h3><a href="{% url 'create_task' project.id %}">Create New Task</a></h3>
+</body>
+</html>
